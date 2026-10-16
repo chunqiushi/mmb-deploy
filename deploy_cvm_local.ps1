@@ -4,7 +4,8 @@
 #       粘贴执行本文件即可。无需本机、无需 WinRM。
 # 前置：CVM 已安装 Python 3.13（默认路径 C:\Program Files\Python313\python.exe，
 #       安装时勾选 Add to PATH）。若没有，脚本会提示并停止。
-# 说明：GitHub 私有库通过 Bearer token 下载（token 只走请求头，不进 URL / 不落盘）。
+# 说明：仓库已设为公开，CVM 无需 token 即可下载；若日后改回私有，运行本脚本时
+#       在 token 提示处粘贴 ghp_... 即可（token 只走请求头，不进 URL / 不落盘）。
 # =============================================================================
 $ErrorActionPreference = 'Continue'
 
@@ -15,16 +16,22 @@ $NODE_URL = "https://nodejs.org/dist/$NODE_VER/node-$NODE_VER-win-x64.zip"
 $PY       = 'C:\Program Files\Python313\python.exe'
 
 Write-Output "== 0. 输入配置 =="
-$token = Read-Host -Prompt "GitHub token (ghp_... 满权限，用后请尽快 revoke 轮换)"
+$token = Read-Host -Prompt "GitHub token（公开库可留空直接回车；私有库需粘贴 ghp_...）"
 $qkey  = Read-Host -Prompt "Qeubee X-Access-Key (ak-qb-...)"
 $wkey  = Read-Host -Prompt "Wind Alice API Key (ak_vA...)"
 
-# 1. 下载仓库 zip（Bearer 头鉴权）
+# 1. 下载仓库 zip（公开库无需 token；私有库用 Bearer 头）
 Write-Output "== 1. 从 GitHub 下载仓库 =="
 $zip = "$env:TEMP\mmb-deploy.zip"
 $url = "https://github.com/$GH_REPO/archive/refs/heads/main.zip"
+$headers = @{}
+if ($token) { $headers['Authorization'] = "Bearer $token" }
 try {
-    Invoke-WebRequest -Headers @{Authorization="Bearer $token"} -Uri $url -OutFile $zip -TimeoutSec 300
+    if ($headers.Count -gt 0) {
+        Invoke-WebRequest -Headers $headers -Uri $url -OutFile $zip -TimeoutSec 300
+    } else {
+        Invoke-WebRequest -Uri $url -OutFile $zip -TimeoutSec 300
+    }
     Write-Output "    下载完成: $((Get-Item $zip).Length) 字节"
 } catch {
     Write-Error "下载失败: $_  —— 可能 CVM 访问 GitHub 受限。可改用：(a) 本机 WinRM 推送；(b) 腾讯云 COS 中转。"
