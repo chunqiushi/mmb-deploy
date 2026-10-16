@@ -1,0 +1,15 @@
+{
+  "qeubee": {
+    "enabled": true,
+    "mode": "auto",
+    "base_url": "https://data-api.qeubee.cn/sumscope/common/mcp/stream",
+    "x_access_key": ""
+  },
+  "wind": {
+    "enabled": true,
+    "alice": {
+      "url": "",
+      "key_env": "WIND_API_KEY"
+    }
+  }
+}
