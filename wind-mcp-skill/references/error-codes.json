@@ -1,0 +1,15 @@
+{
+  "codes": {
+    "UNKNOWN": "未知错误。不要盲目重试；先查看当前错误详情，能定位本地问题（参数 / 配置 / 网络）则修正后重试一次，无法定位则保留原文告知用户并停止。",
+    "AUTH_ERROR": "认证失败。请检查Wind API Key配置。",
+    "ROUTE_ERROR": "路由错误。请检查server_type和tool_name是否正确。",
+    "PARAM_VALIDATION_ERROR": "参数验证失败。请检查参数名和参数值是否正确。",
+    "NO_RESULTS": "查询无结果。可尝试调整参数范围。",
+    "INVALID_PARAMS_JSON": "JSON参数格式错误。请检查引号和转义。",
+    "USAGE_ERROR": "使用方式错误。请检查命令格式。",
+    "BLOCKED_KEY": "API Key缺失或无效。",
+    "BLOCKED_QUOTA": "API额度不足或限流。",
+    "BLOCKED_RUNTIME": "网络或后端服务异常。",
+    "OUT_OF_SCOPE": "请求超出Wind MCP支持范围。"
+  }
+}

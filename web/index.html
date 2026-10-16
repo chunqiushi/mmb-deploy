@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>本币货币债券工作台</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<div class="app">
+
+  <!-- ================= 侧栏 ================= -->
+  <aside class="sidebar">
+    <div class="brand">
+      <h1>本币货币债券工作台</h1>
+      <div class="sub">Money &amp; Bond Desk · 本地离线</div>
+    </div>
+    <nav class="nav" id="nav">
+      <div class="nav-sec">总览</div>
+      <div class="nav-item on" data-p="overview"><span class="ico">◎</span>总览</div>
+      <div class="nav-sec">专题</div>
+      <div class="nav-item" data-p="calendar"><span class="ico">▦</span>流动性日历</div>
+      <div class="nav-item" data-p="pbc"><span class="ico">◈</span>央行操作与官媒</div>
+      <div class="nav-item" data-p="funding"><span class="ico">◐</span>资金</div>
+      <div class="nav-item" data-p="ncd"><span class="ico">▤</span>存单一级</div>
+      <div class="nav-item" data-p="ncd2"><span class="ico">▥</span>存单二级</div>
+      <div class="nav-item" data-p="bill"><span class="ico">▧</span>票据</div>
+      <div class="nav-item" data-p="bond"><span class="ico">◑</span>债券</div>
+      <div class="nav-item" data-p="deriv"><span class="ico">⌁</span>衍生品</div>
+      <div class="nav-sec">工具</div>
+      <div class="nav-item" data-p="calc"><span class="ico">∑</span>人工试算</div>
+      <div class="nav-item" data-p="qa"><span class="ico">?</span>智能问答</div>
+      <div class="nav-item" data-p="draft"><span class="ico">▣</span>数据底稿</div>
+      <div class="nav-item" data-p="source"><span class="ico">⚙</span>数据源与设置</div>
+    </nav>
+    <div class="sidebar-foot">
+      <div>数据仅存于本机 · 不外发</div>
+      <div id="footAsOf">—</div>
+    </div>
+  </aside>
+
+  <!-- ================= 主区 ================= -->
+  <div class="main">
+    <div class="topbar">
+      <div class="tt" id="pageTitle">总览</div>
+      <span class="asof" id="asOf">数据截止 —</span>
+      <div class="sp"></div>
+      <span class="src-dot" id="dotQeubee"><i></i>森浦 Qeubee</span>
+      <span class="src-dot" id="dotWind"><i></i>Wind</span>
+      <span class="src-dot ok" id="dotLocal"><i></i>本地底稿</span>
+      <button class="btn" id="btnRefresh" title="从 Wind / 森浦 拉取最新数据">↻ 实时取数</button>
+      <button class="btn" id="btnUpload">⇪ 上传更新</button>
+      <div class="seg" id="themeSeg">
+        <button data-t="dark" class="on">深</button>
+        <button data-t="light">浅</button>
+      </div>
+    </div>
+    <div class="content" id="content"></div>
+  </div>
+</div>
+
+<!-- ================= 上传弹层 ================= -->
+<div class="modal-mask" id="upMask">
+  <div class="modal">
+    <header><h3>上传 Excel 更新数据</h3><button class="btn sm" id="upClose">关闭</button></header>
+    <div class="body">
+      <p>支持上传 <b>流动性 / 同业存单 / 债市跟踪</b> 三张底稿（.xlsx）。文件<b>只在本机解析</b>，解析后写入本地 <code>data/</code> 目录，不会上传到任何外部地址。</p>
+      <div class="drop" id="drop">点击选择或拖拽 .xlsx 文件到此处</div>
+      <div id="upLog" class="note"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= 数据源弹层 ================= -->
+<div class="modal-mask" id="srcMask">
+  <div class="modal" style="width:820px">
+    <header><h3>Wind / 森浦 Qeubee 供数评估结果</h3><button class="btn sm" id="srcClose">关闭</button></header>
+    <div class="body" id="srcBody"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="assets/charts.js"></script>
+<script src="assets/calc.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
